@@ -1,0 +1,69 @@
+# IDEA Ignores
+*.iml
+*.ipr
+*.iws
+.idea/
+local.properties
+android-news-app/.idea/*
+
+#Gradle build folders
+build/
+.gradle/*
+java-tests/.gradle/*
+java-tests/java-tests/
+
+# Generic Android Ignores
+/*/bin
+*/gen
+bin
+gen/
+target
+*.apk
+android-common.jar
+
+# MAC Ignores
+.DS_Store
+
+# Project Ignores
+.classpath
+.project
+.settings/
+build.properties
+out/production/
+out/
+
+# Custom Ignores
+*.swp
+*/out
+*.db4o
+*.db40
+*.db4O
+*.trace
+perf/
+
+# Test Ignores
+file-write-test.txt
+java-tests/file-write-test.txt
+test-output/
+httpCache/
+
+android-news-app/gradle.properties
+gradle.properties
+
+#python compiled files
+*.pyc
+
+/RUNNING_PID
+/logs/
+/project/*-shim.sbt
+/project/project/
+/project/target/
+/target/
+*.class
+
+*.iml
+*.ipr
+*.iws
+.idea
+out
+

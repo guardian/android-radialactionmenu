@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RadialActionMenuView">
+        <attr name="positioningRadius" format="dimension" />
+        <attr name="actionButtonRadius" format="dimension" />
+        <attr name="selectedActionButtonRadius" format="dimension" />
+        <attr name="iconTextSize" format="dimension" />
+        <attr name="unselectedStrokeWidth" format="dimension" />
+        <attr name="circleRadius" format="dimension" />
+        <attr name="actionButtonSelectedRadius" format="dimension" />
+        <attr name="primaryColor" format="color" />
+        <attr name="secondaryColor" format="color" />
+        <attr name="descriptionTextSize" format="dimension"/>
+        <attr name="circleColor" format="color"/>
+        <attr name="circleStrokeWidth" format="dimension"/>
+        <attr name="circleBackgroundInactive" format="color"/>
+        <attr name="nudgeFactor" format="float"/>
+    </declare-styleable>
+</resources>
