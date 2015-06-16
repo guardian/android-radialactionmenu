@@ -9,7 +9,7 @@ This implementation has been tested with up to 4 action items.
 
 # How to use this?
 Define the layout in the root view of your Fragment/Activity and provide some attributes.
-```
+```xml
 <com.theguardian.ui.RadialActionMenuView
     android:id="@+id/long_press_view"
     android:layout_width="match_parent"
@@ -32,14 +32,14 @@ Define the layout in the root view of your Fragment/Activity and provide some at
 
 Then in your Fragment/Activity set a typeface you'd like to use for the description text.
 
-```
+```java
 radialActionMenu = (RadialActionMenuView) findViewById(R.id.radial_action_menu);
 radialActionMenu.setDescriptionTypeface(TypefaceHelper.getAgateRegular());
 ```
 
 And when a user long-presses on a view, activate the long press radial action menu, passing your long press action with some description text, an ID, and a callback.
 
-```
+```java
 List<RadialActionMenuAction> actions = new ArrayList<>();
 actions.add(new IconFontRadialActionMenuAction(new RadialActionMenuIcon(R.integer.save_page_icon, tf), getString(R.string.long_press_save), 0));
 actions.add(new IconFontRadialActionMenuAction(new RadialActionMenuIcon(R.integer.share_icon, tf), getString(R.string.long_press_share), 1));
@@ -67,7 +67,7 @@ For changing values in the existing implementation use the provided view attribu
 
 ## Action item and label rendering
  Create a custom class which implements ```ActionButtonRenderer```, and set it on the RadialActionMenuView using ```setActionButtonRenderer(...)```.
- 
+
  Perform any drawing logic in ```draw(...)```. See [DefaultActionButtonRenderer](https://github.com/guardian/RadialActionMenu/blob/master/library/src/main/java/com/theguardian/ui/DefaultActionButtonRenderer.java) for the default implementation
 
 # License
