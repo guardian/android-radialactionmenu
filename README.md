@@ -60,11 +60,14 @@ For changing values in the existing implementation use the provided view attribu
 
 ## Positioning of the action items
  Create a custom class which implements ```PositionCalculator```, and set it on the RadialActionMenuView using ```setPositionCalculator(...)```.
+
  For each ActionButtonDataHolder passed in the active areas array be sure to call ```setPosition(x, y)``` given your calculated position of that active area.
+
  See [DefaultPositionCalculator](https://github.com/guardian/RadialActionMenu/blob/master/library/src/main/java/com/theguardian/ui/DefaultPositionCalculator.java) for the default implementation
 
 ## Action item and label rendering
  Create a custom class which implements ```ActionButtonRenderer```, and set it on the RadialActionMenuView using ```setActionButtonRenderer(...)```.
+ 
  Perform any drawing logic in ```draw(...)```. See [DefaultActionButtonRenderer](https://github.com/guardian/RadialActionMenu/blob/master/library/src/main/java/com/theguardian/ui/DefaultActionButtonRenderer.java) for the default implementation
 
 # License
