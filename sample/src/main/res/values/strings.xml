@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RadialActionMenu</string>
+
+    <string name="press_me">Long press me</string>
+</resources>

@@ -7,17 +7,21 @@ import android.graphics.Typeface;
 import android.os.SystemClock;
 import android.os.Vibrator;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
 
 import java.util.List;
 
 public class RadialActionMenuView extends FrameLayout {
+    private static final String TAG = RadialActionMenuView.class.getSimpleName();
+
     private MetricsHolder metrics;
     private PaintHolder paints;
 
     private PointF downPosition = new PointF();
     private PointF currentPosition = new PointF();
+    private int[] tempPositionArray = new int[2];
 
     private OnActionSelectedListener onActionSelectedListener;
 
@@ -61,7 +65,13 @@ public class RadialActionMenuView extends FrameLayout {
                 ActionButtonDataHolder newSelectedPoint = selectedPoint();
                 if (selectedPoint != newSelectedPoint) {
                     Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
-                    v.vibrate(60);
+                    if(v != null) {
+                        try {
+                            v.vibrate(60);
+                        } catch(SecurityException ex) {
+                            Log.e(TAG, "Need vibrate permission to vibrate");
+                        }
+                    }
                     selectedPoint = newSelectedPoint;
                 }
             }
@@ -121,7 +131,8 @@ public class RadialActionMenuView extends FrameLayout {
         super.onDraw(canvas);
         if (activated) {
             canvas.save();
-            canvas.translate(0, -getPaddingTop());
+            getLocationInWindow(tempPositionArray);
+            canvas.translate(0, -tempPositionArray[1]);
 
             canvas.drawCircle(downPosition.x, downPosition.y, metrics.circleRadius, paints.circlePaint);
 

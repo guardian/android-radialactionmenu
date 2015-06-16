@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="icon_thumbs_up">0x1F44D</integer>
+    <integer name="icon_thumbs_down">0x1F44E</integer>
+    <integer name="icon_cat">0x1F408</integer>
+    <integer name="icon_dog">0x1F415</integer>
+</resources>
