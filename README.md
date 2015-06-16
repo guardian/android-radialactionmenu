@@ -37,6 +37,16 @@ radialActionMenu = (RadialActionMenuView) findViewById(R.id.radial_action_menu);
 radialActionMenu.setDescriptionTypeface(TypefaceHelper.getAgateRegular());
 ```
 
+In the Activity that hosts the RadialActionMenuView be sure to override ```dispatchTouchEvent()``` and forward touch events to the view
+
+```java
+@Override
+public boolean dispatchTouchEvent(MotionEvent ev) {
+    radialActionMenu.snoopOnTouchEvent(ev);
+    return super.dispatchTouchEvent(ev);
+}
+```
+
 And when a user long-presses on a view, activate the long press radial action menu, passing your long press action with some description text, an ID, and a callback.
 
 ```java
