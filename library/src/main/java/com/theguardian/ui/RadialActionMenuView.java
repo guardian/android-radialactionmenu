@@ -21,7 +21,7 @@ public class RadialActionMenuView extends FrameLayout {
 
     private OnActionSelectedListener onActionSelectedListener;
 
-    private boolean longClicked = false;
+    private boolean activated = false;
 
     private ActionButtonDataHolder[] activeAreas;
     private ActionButtonDataHolder selectedPoint;
@@ -49,8 +49,6 @@ public class RadialActionMenuView extends FrameLayout {
         paints = new PaintHolder(metrics);
 
         renderer.init(getContext(), metrics, paints);
-
-        setWillNotDraw(false);
     }
 
     public void snoopOnTouchEvent(MotionEvent event) {
@@ -59,7 +57,7 @@ public class RadialActionMenuView extends FrameLayout {
             midpoint(event, currentPosition);
         } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
             midpoint(event, currentPosition);
-            if (longClicked) {
+            if (activated) {
                 ActionButtonDataHolder newSelectedPoint = selectedPoint();
                 if (selectedPoint != newSelectedPoint) {
                     Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
@@ -68,19 +66,20 @@ public class RadialActionMenuView extends FrameLayout {
                 }
             }
         } else if (event.getAction() == MotionEvent.ACTION_CANCEL || event.getAction() == MotionEvent.ACTION_UP) {
-            if (longClicked) {
+            if (activated) {
                 actionUp();
             }
         }
     }
 
     private void actionUp() {
-        longClicked = false;
+        activated = false;
         if (onActionSelectedListener != null) {
             onActionSelectedListener.onActionSelected(selectedPoint != null ? selectedPoint.getAction() : null);
             onActionSelectedListener = null;
         }
         selectedPoint = null;
+        setWillNotDraw(true);
         invalidate();
     }
 
@@ -101,7 +100,7 @@ public class RadialActionMenuView extends FrameLayout {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if (longClicked) {
+        if (activated) {
             snoopOnTouchEvent(ev);
             return true;
         }
@@ -110,7 +109,7 @@ public class RadialActionMenuView extends FrameLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (longClicked) {
+        if (activated) {
             snoopOnTouchEvent(event);
             return true;
         }
@@ -120,7 +119,7 @@ public class RadialActionMenuView extends FrameLayout {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (longClicked) {
+        if (activated) {
             canvas.save();
             canvas.translate(0, -getPaddingTop());
 
@@ -143,7 +142,7 @@ public class RadialActionMenuView extends FrameLayout {
         }
     }
 
-    public void longClicked(OnActionSelectedListener listener, List<RadialActionMenuAction> items) {
+    public void showMenu(OnActionSelectedListener listener, List<RadialActionMenuAction> items) {
         this.onActionSelectedListener = listener;
 
         // Send cancel event to view hierarchy
@@ -168,8 +167,9 @@ public class RadialActionMenuView extends FrameLayout {
             activeAreas[i] = new ActionButtonDataHolder(items.get(i), point, downPosition);
         }
 
-        longClicked = true;
+        activated = true;
         positionCalculator.calcUsableRadius(this, activeAreas, downPosition, metrics);
+        setWillNotDraw(false);
         invalidate();
     }
 
