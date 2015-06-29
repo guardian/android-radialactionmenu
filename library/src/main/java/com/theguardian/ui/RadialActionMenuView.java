@@ -175,7 +175,7 @@ public class RadialActionMenuView extends FrameLayout {
         activeAreas = new ActionButtonDataHolder[items.size()];
         for (int i = 0; i < activeAreas.length; i++) {
             PointF point = new PointF();
-            activeAreas[i] = new ActionButtonDataHolder(items.get(i), point, downPosition);
+            activeAreas[i] = new ActionButtonDataHolder(items.get(i), i, point, downPosition);
         }
 
         activated = true;
