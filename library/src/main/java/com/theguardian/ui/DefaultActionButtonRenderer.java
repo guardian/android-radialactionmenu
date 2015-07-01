@@ -48,7 +48,7 @@ public class DefaultActionButtonRenderer extends BaseActionButtonRenderer {
             line.transform(scaleMatrix);
             PathMeasure measure = new PathMeasure(line, false);
             float[] labelPosition = new float[2];
-            holder = new MeasureHolder(measure, 100 * dataHolder.getIndex(), labelPosition);
+            holder = new MeasureHolder(measure, 80 * dataHolder.getIndex(), labelPosition);
             measure.getPosTan(measure.getLength(), labelPosition, null);
             measureHolder.put(dataHolder, holder);
         }
@@ -126,8 +126,8 @@ public class DefaultActionButtonRenderer extends BaseActionButtonRenderer {
         public final PathMeasure path;
         public final float[] labelPosition;
 
-        public ValueAnimator placementAnimation = ValueAnimator.ofFloat(0, 1f).setDuration(400);
-        public ValueAnimator linearAnimation = ValueAnimator.ofFloat(0, 1f).setDuration(400);
+        public ValueAnimator placementAnimation = ValueAnimator.ofFloat(0, 1f).setDuration(320);
+        public ValueAnimator linearAnimation = ValueAnimator.ofFloat(0, 1f).setDuration(320);
         public ValueAnimator nudgeAnimation = ValueAnimator.ofFloat(0f, -0.2f).setDuration(200);
         public boolean selected = false;
 
