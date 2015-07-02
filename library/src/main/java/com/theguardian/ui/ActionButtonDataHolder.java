@@ -6,11 +6,13 @@ public class ActionButtonDataHolder{
     private RadialActionMenuAction action;
     private PointF position;
     private PointF downPosition;
+    private int index;
 
-    public ActionButtonDataHolder(RadialActionMenuAction action, PointF position, PointF downPosition) {
+    public ActionButtonDataHolder(RadialActionMenuAction action, int index, PointF position, PointF downPosition) {
         this.action = action;
         this.position = position;
         this.downPosition = downPosition;
+        this.index = index;
     }
 
     public void setPosition(float x, float y) {
@@ -30,4 +32,7 @@ public class ActionButtonDataHolder{
         return downPosition;
     }
 
+    public int getIndex() {
+        return index;
+    }
 }

@@ -9,6 +9,9 @@ import android.graphics.Path;
 import android.graphics.PathMeasure;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.util.AttributeSet;
+import android.view.animation.BaseInterpolator;
+import android.view.animation.OvershootInterpolator;
 
 import java.util.HashMap;
 
@@ -45,7 +48,7 @@ public class DefaultActionButtonRenderer extends BaseActionButtonRenderer {
             line.transform(scaleMatrix);
             PathMeasure measure = new PathMeasure(line, false);
             float[] labelPosition = new float[2];
-            holder = new MeasureHolder(measure, labelPosition);
+            holder = new MeasureHolder(measure, 80 * dataHolder.getIndex(), labelPosition);
             measure.getPosTan(measure.getLength(), labelPosition, null);
             measureHolder.put(dataHolder, holder);
         }
@@ -107,7 +110,8 @@ public class DefaultActionButtonRenderer extends BaseActionButtonRenderer {
             float posX = tempFloat[0];
             float posY = tempFloat[1];
 
-            canvas.scale(measureHolder.placementAnimation.getAnimatedFraction(), measureHolder.placementAnimation.getAnimatedFraction(), posX, posY);
+            canvas.rotate((measureHolder.linearAnimation.getAnimatedFraction() * 90f) - 90f, posX, posY);
+            canvas.scale(measureHolder.linearAnimation.getAnimatedFraction(), measureHolder.linearAnimation.getAnimatedFraction(), posX, posY);
             if (!isSelected) {
                 canvas.drawCircle(posX, posY, metrics.actionButtonRadius, paints.inactiveCirclePaintBg);
             }
@@ -122,15 +126,19 @@ public class DefaultActionButtonRenderer extends BaseActionButtonRenderer {
         public final PathMeasure path;
         public final float[] labelPosition;
 
-        public ValueAnimator placementAnimation = ValueAnimator.ofFloat(0, 1f);
+        public ValueAnimator placementAnimation = ValueAnimator.ofFloat(0, 1f).setDuration(320);
+        public ValueAnimator linearAnimation = ValueAnimator.ofFloat(0, 1f).setDuration(320);
         public ValueAnimator nudgeAnimation = ValueAnimator.ofFloat(0f, -0.2f).setDuration(200);
         public boolean selected = false;
 
-        private MeasureHolder(PathMeasure path, float[] labelPosition) {
+        private MeasureHolder(PathMeasure path, int delay, float[] labelPosition) {
             this.path = path;
             this.labelPosition = labelPosition;
+            placementAnimation.setStartDelay(delay);
+            placementAnimation.setInterpolator(new OvershootInterpolator(1.1f));
             placementAnimation.start();
             nudgeAnimation.start();
+            linearAnimation.start();
         }
     }
 
